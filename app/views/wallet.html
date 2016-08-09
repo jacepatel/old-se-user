@@ -1,0 +1,49 @@
+<ion-view>
+  <ion-nav-bar class='bar-stable'>
+    <div class="buttons left-buttons">
+      <a ng-href="#/home"><button class="button">BACK</button></a>
+    </div>
+    <h1 class='title oswald'>WALLET</h1>
+  </ion-nav-bar>
+  <ion-content scroll='true' overflow-scroll="true" padding="false" class='has-header wallet-pane'>
+    <div class="list list-inset" ng-if='!noPms();'>
+      <div class="item" ng-repeat="pm in user.paymentMethods" ng-if="pm.defaultMethod">
+        <div class="quarter"><img class='ccTypeImg' ng-src="{{ getImageURL(pm.cardType) }}" /></div>
+        <div class='quarter'>{{ pm.identifier | getPPId }}</div>
+        <div class='quarter' ng-switch='pm.defaultMethod'>
+          <div style='width: 25px; display: inline-block;' ng-click='makeDefault(pm)'>
+            <img ng-switch-when='true' src='img/default.png' class='default' />
+            <img ng-switch-when='false' src='img/not-default.png' class='default' />
+          </div>
+          <div class='default'>default</div>
+        </div>
+        <div class="quarter">
+          <!-- <img  class='icon-btn' src='img/delete-cross.png' /> -->
+          <i ng-click="deletePaymentMethod(pm.paymentMethodToken)" style="color: rgb(158, 158, 158);" class='button button-icon icon ion-trash-b'></i>
+        </div>
+      </div>
+      <div class="item" ng-repeat="pm in user.paymentMethods"  ng-if="!pm.defaultMethod">
+        <div class="quarter"><img class='ccTypeImg' ng-src="{{ getImageURL(pm.cardType) }}" /></div>
+        <div class='quarter'>{{ pm.identifier | getPPId }}</div>
+        <div class='quarter' ng-switch='pm.defaultMethod'>
+          <div style='width: 25px; display: inline-block;' ng-click='makeDefault(pm)'>
+            <img ng-switch-when='true' src='img/default.png' class='default' />
+            <img ng-switch-when='false' src='img/not-default.png' class='default' />
+          </div>
+          <div class='default'>default</div>
+        </div>
+        <div class="quarter">
+          <img ng-click="deletePaymentMethod(pm.paymentMethodToken)" class='icon-btn' src='img/delete-cross.png' />
+        </div>
+      </div>
+    </div>
+    <div class="list list-inset" ng-if='noPms();'>
+      <div style='text-align: center;' class="item">
+        No payment methods linked.
+      </div>
+    </div>
+    <a href='#/card' class="button button-block button-stable">
+      ADD CARD
+    </a>
+  </ion-content>
+</ion-view>

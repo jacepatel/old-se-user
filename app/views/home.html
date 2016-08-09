@@ -1,0 +1,57 @@
+<ion-view title="<img src='img/logo.png' class='center logo' />">
+  <ion-nav-bar class='bar-stable'>
+    <ion-nav-buttons side="left">
+      <button ng-if="!loggedIn()" class="button" menu-toggle="left">LOGIN</button>
+      <i ng-if="loggedIn()" class="button button-icon icon ion-navicon" style='color: white;' menu-toggle="left"></i>
+      <!-- <button ng-if="loggedIn()" class="button header-button" menu-toggle="left">
+        <img src='img/menu.png' class='menu-icon' />
+      </button> -->
+    </ion-nav-buttons>
+    <h1 class='title'></h1>
+    <ion-nav-buttons side="right">
+      <a ng-href="#/register" ng-if="!loggedIn()"><button class="button">SIGNUP</button></a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content style='z-index: 1;' scroll='false' padding="false" class='has-header' data-tap-disabled="true">
+    <info-window class='iw' ng-if='iwTruck != null' iw-truck='iwTruck' iw-close="iwClose()">
+    </info-window>
+    <info-window-future class='iw' ng-if='iwTruckFuture != null' iw-truck='iwTruckFuture' iw-session='iwSessionFuture' iw-close="iwClose()">
+    </info-window-future>
+    <info-window-event class='iw' ng-if='iwEvent != null' iw-event='iwEvent' iw-close="iwClose()">
+    </info-window-event>
+    <ui-gmap-google-map center='map.center' zoom='map.zoom' options='mapOptions' pan='1' events="mapEvents">
+      <ui-gmap-markers
+      models='events'
+      idKey="'eventId'"
+      coords="'self'"
+      options="'options'"
+      click="'openMarkerEvent'"
+      >
+      </ui-gmap-markers>
+      <ui-gmap-markers
+      models='futureEvents'
+      idKey="'eventId'"
+      coords="'self'"
+      options="'options'"
+      click="'openMarkerEvent'"
+      >
+      </ui-gmap-markers>
+      <ui-gmap-markers
+      models='trucks'
+      idKey="'truckId'"
+      coords="'activeSession'"
+      options="'options'"
+      click="'iwOpen'"
+      >
+      </ui-gmap-markers>
+      <ui-gmap-markers ng-repeat="truck in futureTrucks"
+      models='truck.futureSessions'
+      idKey="'truckSessionId'"
+      coords="'self'"
+      options="'options'"
+      click="'iwOpen'"
+      >
+      </ui-gmap-markers>
+    </ui-gmap-google-map>
+  </ion-content>
+</ion-view>

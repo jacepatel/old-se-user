@@ -1,0 +1,58 @@
+<ion-view>
+  <ion-nav-bar class='bar-stable'>
+    <div class="buttons left-buttons">
+      <button ng-click="backBtnAction()" class="button">BACK</button>
+    </div>
+    <h1 class='title oswald'>SIGNUP</h1>
+    <div class="buttons right-buttons">
+      <button ng-disabled='formInvalid()' side='right' class="button" ng-click="nextBtnAction()">NEXT</button>
+    </div>
+  </ion-nav-bar>
+  <ion-content scroll='true' padding="false" class='has-header register-pane'>
+        <div class="box">
+          <div class='paneHead oswald'>
+            <span>CREATE AN ACCOUNT</span><br><br>
+            <progressbar value="1" max='2' type='success' class="progress">1/2</progressbar>
+          </div>
+          <div class="list list-inset">
+            <form name='registerForm' id='registerForm' parentobj="registerForm" ion-content-form submit="nextBtnAction()">
+              <label class="item item-input">
+                <div class='inputLbl oswald'>First</div><input type="text" placeholder="First Name" name="firstName" ng-model="accountDetails.firstName" ng-blur="checkName(accountDetails.firstName)"  />
+              </label>
+              <label class="item item-input">
+                <div class='inputLbl oswald'>Last</div><input type="text" placeholder="Last Name" name="lastName" ng-model="accountDetails.lastName" ng-blur="checkName(accountDetails.lastName)" />
+              </label>
+              <label class="item item-input">
+                <div class='inputLbl oswald'>Email</div><input name='email' ng-model='accountDetails.email' type="email" placeholder="example@email.com" ng-blur="checkEmail(accountDetails.email)" />
+              </label>
+              <label class="item item-input">
+                <div class='inputLbl oswald'>Pass</div><input name='password' ng-model='accountDetails.password' type="password" placeholder="password (min 6 characters)" ng-blur="checkPass(accountDetails.password)" />
+              </label>
+              <label class="item item-input">
+                <div class='inputLbl oswald'>Mob</div><input type="tel" ng-model='accountDetails.mobNum' placeholder="04XX XXX XXX" maxlength="10" minlength="10" name='mobNum' ng-blur="checkMob(accountDetails.mobNum)" />
+              </label>
+              <label class="item item-input">
+                <div class='inputLbl oswald'>City</div>
+                <input placeholder="Brisbane" name='locality' type='text' g-places-autocomplete forceSelection="true" options="placeOptions" ng-model='accountDetails.locality' />
+              </label>
+            </form>
+          </div>
+          <div class='paneHead tos' ng-click='toggleTos();'>
+            <div style='width: 85%; display: inline; float: left; font-size: 11px;'>I agree to
+              <span ng-click='openTos(); $event.stopPropagation();' style='text-decoration: underline; font-weight: bold;'>
+                Terms of Service
+              </span>
+              &amp;
+              <span ng-click='openPP(); $event.stopPropagation();' style='text-decoration: underline; font-weight: bold;'>
+                Privacy Policy.
+              </span>
+            </div>
+            <img class='tos checkbox' src='img/not-default.png' ng-if='agreeToTos != true;' />
+            <img class='tos checkbox' src='img/default.png' ng-if='agreeToTos == true;' />
+          </div>
+          <div class='paneHead'>
+            <span>We use your email and mobile number to keep you updated on the status of your order.</span>
+          </div>
+        </div>
+  </ion-content>
+</ion-view>

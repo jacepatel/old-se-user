@@ -1,0 +1,36 @@
+<div class="modal">
+  <div class="bar bar-header bar-stable">
+    <button class="button" ng-click="closeOptions()">BACK</button>
+    <h1 class="title oswald">OPTIONS</h1>
+  </div>
+<ion-content scroll='true' class='has-header'>
+  <div class="card">
+    <div class="item item-text-wrap">
+      <div class='itemName' style="width: 80%;">{{ itemToAdd.name }}</div>
+      <div class='itemPrice' style='float: right;'>${{ itemToAdd.price | number: 2 }}</div>
+      <div class='itemDescription'>{{ itemToAdd.description }}</div>
+    </div>
+  </div>
+  <div class='sub-title oswald'>
+    CUSTOMISE ITEM
+  </div>
+  <div class="list list-inset">
+    <div class='list-item item itemOption item-divider' ng-repeat="option in itemToAdd.itemOptions" ng-if="option.type == 'Boolean'" ng-click="option.added = !option.added;">
+      <span>{{ option.name }}</span>
+      <img class='checkbox' src='img/not-default.png' ng-if="option.added == false" />
+      <img class='checkbox' src='img/default.png'  ng-if="option.added == true" />
+      <span style='float: right;  margin-right: 20px; font-weight: normal;'>${{  option.cost | number: 2  }}</span>
+    </div>
+    <div class='list-item item item-divider itemOption' ng-repeat-start="option in itemToAdd.itemOptions" ng-if="option.type == 'Select'">
+      {{ option.name }}
+    </div>
+    <div ng-click="selectOption(option, select);" class='list-item item itemOption' ng-repeat="select in option.itemOptionSelects" ng-repeat-end>
+      <span>{{ select.name }}</span>
+      <img class='checkbox' src='img/not-default.png' ng-if="option.selectedId != select.itemOptionSelectId" />
+      <img class='checkbox' src='img/default.png'  ng-if="option.selectedId == select.itemOptionSelectId" />
+      <span style='float: right;  margin-right: 20px;'>${{  select.cost | number: 2  }}</span>
+    </div>
+  </div>
+  <button ng-click='addItem(itemToAdd)' class='button button-block confirm'>ADD ITEM</button>
+</ion-content>
+</div>

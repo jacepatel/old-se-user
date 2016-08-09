@@ -1,0 +1,15 @@
+<ion-view>
+  <ion-nav-bar class='bar-stable'>
+    <img src='img/logo.png' id='logo' class='center' />
+  </ion-nav-bar>
+  <ion-content scroll='false' padding="false" class='has-header orders-pane'>
+    <br>
+    <div class='paneHead'>
+      There are critical updates available that you must install before continuing to use StreetEats. You can install these updates from the {{ returnStoreType() }}.
+    </div>
+    <br>
+    <a ng-href="{{ appStoreLink() }}" target="_system">
+      <button class='button button-block'>Go To {{ returnStoreType() }}</button>
+    </a>
+  </ion-content>
+</ion-view>

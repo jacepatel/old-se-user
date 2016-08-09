@@ -1,0 +1,13 @@
+<div class='iw-wrap'>
+  <img class='iw-close' ng-click='iwClose()' src='img/box-cross.png' />
+  <div class='iw-content'>
+    <span class='title mapTitle'>{{ iwEvent.name }}</span>
+    <br>
+    <p style="width: 90%; line-height: 1.2;">{{ iwEvent.description }}</p>
+    <span class='sessionTimes' style='color: #13C546;'>
+      {{ todayOrTomorrow(iwEvent.startTime) }}: {{ iwEvent.startTime | date:'HH:mm' }} - {{ iwEvent.endTime | date:'HH:mm' }}
+    </span>
+  </div>
+</div>
+<div class='iw-wedge'>
+</div>

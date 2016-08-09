@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="connect-src * 'unsafe-eval' 'unsafe-inline'; script-src * 'unsafe-eval' 'unsafe-inline'; object-src * 'unsafe-eval' 'unsafe-inline';">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>StreetEats</title>
+    <link rel="stylesheet" href="styles/animations.css">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <!-- build:css styles/vendor.css -->
+    <!-- <link rel="stylesheet" href="vendor/some.contrib.css"> -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="lib/ionic/release/css/ionic.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <script>
+     function resetApp(){
+       document.location.href = 'index.html';
+     }
+    </script>
+  </head>
+
+  <body>
+    <ion-side-menus>
+      <!-- THIS IS THE MENU -->
+      <ion-side-menu side='left'>
+        <!-- <div ng-if="!loggedIn()" class='login-menu-head'>Log in to my StreetEats account:</div> -->
+      </ion-side-menu>
+      <ion-side-menu-content drag-content="false">
+        <ion-pane>
+          <ion-nav-bar class='bar-stable'>
+            <img src='img/logo.png' id='logo' class='center' />
+          </ion-nav-bar>
+          <ion-content scroll='false' padding="false" class='has-header orders-pane'>
+            <br>
+            <div class='paneHead'>
+              StreetEats was unable to gain network access. Please check your connection, and click below to reload.
+            </div>
+            <br>
+            <button class='button button-block' onclick='resetApp();'>Reload</button>
+          </ion-content>
+        </ion-pane>
+      </ion-side-menu-content>
+    </ion-side-menus>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<ion-view>
+  <ion-nav-bar class='bar-stable'  ng-switch="user.paymentMethods.length > 0">
+    <div class="buttons left-buttons">
+      <a ng-href="#/home"><button class="button">BACK</button></a>
+    </div>
+    <h1 ng-switch-when='true' class='title oswald'>ADD CARD</h1>
+    <h1 ng-switch-when='false' class='title oswald'>SIGNUP</h1>
+    <div ng-switch='user.paymentMethods.length > 0' class="buttons right-buttons">
+      <button ng-disabled="submittable()" ng-switch-when='true' class="button" ng-click="addPaymentMethod()">SAVE</button>
+      <button ng-disabled="submittable()" ng-switch-when='false' class="button" ng-click="addPaymentMethod()">FINISH</button>
+    </div>
+  </ion-nav-bar>
+  <ion-content scroll='true' padding="false" class='has-header card-pane'>
+    <div class='paneHead oswald' ng-switch='user.paymentMethods.length < 1'>
+      <img class='secure-icons' style="float: left;" src='img/shield.png'/>
+      <span>LINK CARD</span>
+      <img style="float: right;" class='secure-icons' src='img/lock.png'/><br><br>
+      <progressbar style='margin-bottom: 0px;' value="2" max='2' type='success' class="progress">2/2</progressbar>
+      <br>
+      NOTE: You will notice a $1.00 transaction against your card. This is to verify your card's standing, and this charge will be voided.
+    </div>
+      <form style='margin: 5px 0px;' name='paymentDetails' id='ccForm' ng-model='paymentDetails' ion-content-form parentobj="cardForm" ng-sumbit="addPaymentMethod()">
+        <div class='inputLbl'>
+          Credit Card Number
+          <div class='ccTypeWrap'>
+            <img class='ccColor' src='img/visa-color.png' />
+            <img class='ccColor' src='img/mastercard-color.png' />
+            <!-- <img class='ccColor' src='img/amex-color.png' /> -->
+          </div>
+        </div>
+        <div class="list list-inset" style='margin-top: 10px;'>
+        <label class="item item-input">
+          <input name='cardNo' data-braintree-name="number" type="tel" ng-model="card.number" payments-validate="card" ng-blur="checkCardNo();" payments-type-model="card.type"  payments-format="card" placeholder="1234 5678 9012 3456" />
+          <img class='ccFieldImg' src='img/ccicon.png' />
+        </label>
+      </div>
+        <div class='inputLbl'>Expiry</div>
+        <div class="list list-inset">
+        <label class="item item-input">
+          <input name='cardExp' data-braintree-name="expiration_date" type="tel" ng-model="card.expiry" payments-validate="expiry" ng-blur="checkExp();" payments-format="expiry" placeholder="MM/YY" />
+        </label>
+      </div>
+        <div class='inputLbl'>CVC</div>
+        <div class="list list-inset">
+        <label class="item item-input">
+          <input name='cardCVC' data-braintree-name="cvv" type="tel" ng-model="card.cvc" payments-validate="cvc" payments-type-model="card.type" ng-blur="checkCVC();" payments-format="cvc" placeholder="3-4 Digits" />
+          <img class='ccFieldImg' src='img/cvcicon.png' />
+        </label>
+      </div>
+      <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+      </form>
+      <div class="paneHead">
+        Your card details are kept safe and secure. All information is transferred securely using 128-bit SSL encryption.
+      </div>
+    <!-- <form>
+      <div id="dropin" style='width: 95%; margin: 10px auto;'>
+      </div>
+      <input class='button button-block' type="submit" value="SAVE" style='width: 95%; background-color: #009cde; border-radius: 4px;'>
+    </form> -->
+</ion-content>
+</ion-view>

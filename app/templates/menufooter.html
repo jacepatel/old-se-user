@@ -1,0 +1,52 @@
+<div class="bar bar-footer bar-royal currentOrder" style='height: {{ footerHeight }}px;' ng-switch="showWhich()">
+
+  <!-- SHOWS CURRENT ORDER -->
+  <div ng-switch-when='currentorder' style='width: 100%; height: 100%;'>
+    <div class='footerHead'>
+      <span>Current Total: <span/><span style='float: right;'>${{ orderTotal | number: 2 }}</span>
+    </div>
+    <div class='absolute-text oswald'>TAP TO REMOVE</div>
+    <ul class='currentItems'>
+      <li ng-repeat="item in currentItems track by $index">
+        <div class='slideRight currentItem' ng-click="openEditItem($index)">
+          <span style="font-size: 10pt;">{{ item.shortDescription }}</span><br>
+          <span>x {{ item.qty }}</span><br>
+          <span ng-if="isCustom(item)">(custom)</span>
+        </div>
+      </li>
+    </ul>
+    <button ng-click="openConfirm();" ng-disabled="!overMinimumOrder()" class="button button-block button-stable">{{ buttonText() }}</button>
+  </div>
+
+  <!-- SHOWS CREATE ACCOUNT -->
+  <div ng-switch-when='createaccount' style='width: 100%; height: 100%;'>
+    <div class='footerHead orderUnavailable'>
+      <span>Login or create an account to order.</span>
+    </div>
+    <button style='margin-top: 5px;' class="button button-block button-stable" menu-toggle="left">LOGIN</button>
+  </div>
+
+  <!-- SHOWS ADD PAYMETHOD -->
+  <div ng-switch-when='addpaymethod' style='width: 100%; height: 100%;'>
+    <div class='footerHead orderUnavailable'>
+      <span>Add a payment method to order.</span>
+    </div>
+    <a ng-href='#/card'>
+      <button style='margin-top: 5px;' class="button button-block button-stable">ADD PAYMENT METHOD</button>
+    </a>
+  </div>
+
+  <!-- SHOWS QUEUE FULL -->
+  <div ng-switch-when='queuefull' style='width: 100%; height: 100%;'>
+    <div class='footerHead orderUnavailable'>
+      <span>This vendor is a little busy right now. Mobile orders are currently disabled.</span>
+    </div>
+  </div>
+
+  <!-- SHOWS SHOP NOT OPEN -->
+  <div ng-switch-when='notopen' style='width: 100%; height: 100%;'>
+    <div class='footerHead orderUnavailable'>
+      <span>This vendor is not currently accepting mobile orders.</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="modal">
+  <div class="bar bar-header bar-stable">
+    <button class="button" ng-click="closeConfirm()">BACK</button>
+    <h1 class="title oswald">CONFIRM ORDER</h1>
+  </div>
+<ion-content scroll='true' class='has-header'>
+  <div class="list list-inset">
+    <div class='item list-item' ng-repeat="item in currentItems">
+      <span style='text-decoration:underline; font-size: 10pt;'>{{ item.name }} x {{ item.qty }}</span>
+      <span style='float: right; font-size: 10pt;'>${{ item.qty * item.price | number: 2 }}</span>
+      <div ng-repeat="option in item.itemOptions" style='font-size: 10pt;'>
+        <span ng-if="option.type == 'Boolean' && option.added">{{ option.name }} <span style='float: right;'>${{ option.cost * item.qty | number: 2 }}</span></span>
+        <span ng-repeat="select in option.itemOptionSelects" ng-if="option.type == 'Select' && select.itemOptionSelectId == option.selectedId">
+            {{ select.name }} <span style='float: right;'>${{ select.cost * item.qty | number: 2 }}</span>
+        </span>
+      </div>
+    </div>
+    <div class="item list-item orderTotal">
+      <span>Total: </span>
+      <span style='float: right;'>${{ getOrderTotal() | number: 2 }}</span>
+    </div>
+  </div>
+  <button ng-click='placeOrder()' class='button button-block confirm'>CONFIRM</button>
+</ion-content>
+</div>

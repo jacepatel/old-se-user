@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="connect-src * 'unsafe-eval' 'unsafe-inline'; script-src * 'unsafe-eval' 'unsafe-inline'; object-src * 'unsafe-eval' 'unsafe-inline';">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>StreetEats</title>
+    <link rel="stylesheet" href="styles/animations.css">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+    <!-- build:css styles/vendor.css -->
+    <!-- <link rel="stylesheet" href="vendor/some.contrib.css"> -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="lib/ionic/release/css/ionic.css" />
+    <link rel="stylesheet" href="lib/angular-google-places-autocomplete/src/autocomplete.css" />
+    <link rel="stylesheet" href="lib/angular-google-places-autocomplete/dist/autocomplete.min.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <!-- // <script src="https://assets.braintreegateway.com/v2/braintree.js"></script> -->
+  </head>
+
+  <body ng-app='SENativ'>
+    <ion-side-menus>
+      <!-- THIS IS THE MENU -->
+      <ion-side-menu side='left' ng-controller="SideMenuCtrl" style="padding-top: {{ getPadding() }}px;">
+        <!-- <div ng-if="!loggedIn()" class='login-menu-head'>Log in to my StreetEats account:</div> -->
+        <div class="list" ng-if="!loggedIn()">
+          <!-- THIS IS THE MENU CONTENT WHEN NOT LOGGED IN -->
+          <label class="item list-item item-input">
+            <input ng-model='$parent.email' autocapitalize="off" autocorrect="off" type="text" placeholder="youremail@example.com">
+          </label>
+          <label class="item list-item item-input">
+            <input ng-model='$parent.password' type="password" placeholder="password">
+          </label>
+          <button ng-click='login()' class="button button-block button-stable">
+            LOGIN
+          </button><br>
+          <div ng-click="goToFromMenu('/pwresetrequest')" style='text-decoration: underline; margin: 0 auto; text-align: center; cursor: pointer;'>
+            Forgot your account details?
+          </div><br>
+          <div ng-click="goToFromMenu('/register')" style='text-decoration: underline; margin: 0 auto; text-align: center; cursor: pointer;'>
+            Don't have an account?
+          </div>
+        </div>
+        <div class='list' ng-if="loggedIn()">
+          <!-- THIS IS THE MENU CONTENT WHEN LOGGED IN -->
+          <button ng-click="goToFromMenu('/home')" class="button button-full button-royal">
+            <img src='img/menu-home.png' class='menu-icon' /> HOME
+          </button>
+          <button ng-click="goToFromMenu('/account')" class="button button-full button-royal">
+            <img src='img/menu-account.png' class='menu-icon' /> ACCOUNT
+          </button>
+          <button ng-click="goToFromMenu('/orders')" class="button button-full button-royal">
+            <img src='img/menu-my-orders.png' class='menu-icon' /> ORDERS
+          </button>
+          <button ng-click="goToFromMenu('/wallet')" class="button button-full button-royal">
+            <img src='img/menu-wallet.png' class='menu-icon' /> WALLET
+          </button>
+          <button ng-click="openSearch()" class="button button-full button-royal">
+            <img src='img/menu-search.png' class='menu-icon' /> SEARCH
+          </button>
+          <button ng-click="logout()" class="button button-full button-royal">
+            <img src='img/menu-logout.png' class='menu-icon' /> LOGOUT
+          </button>
+        </div>
+      </ion-side-menu>
+      <ion-side-menu-content drag-content="false">
+        <ion-pane>
+          <ion-nav-view>
+          </ion-nav-view>
+        </ion-pane>
+      </ion-side-menu-content>
+    </ion-side-menus>
+    <!-- build:js scripts/vendor.js -->
+    <!-- <script src="vendor/someContribJs.js"></script> -->
+    <!-- bower:js -->
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-animate/angular-animate.js"></script>
+    <script src="lib/angular-sanitize/angular-sanitize.js"></script>
+    <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="lib/collide/collide.js"></script>
+    <script src="lib/ionic/release/js/ionic.js"></script>
+    <script src="lib/ionic/release/js/ionic-angular.js"></script>
+    <script src="lib/lodash/lodash.js"></script>
+    <script src="lib/angular-google-maps/dist/angular-google-maps.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script>
+    <script src="lib/angular-payments/lib/angular-payments.js"></script>
+    <script src="lib/angular-cookies/angular-cookies.js"></script>
+    <script src="lib/angular-google-places-autocomplete/src/autocomplete.js"></script>
+    <script src="lib/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <script src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <!-- cordova script (this will be a 404 during development) -->
+        <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+        <script src="cordova.js"></script>
+
+        <!-- build:js scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <!-- endbuild -->
+
+        <!-- SERVICES -->
+        <script src="scripts/services/sfeAPI.js"></script>
+        <script src="scripts/services/notifications.js"></script>
+        <script src="scripts/services/credentialStore.js"></script>
+        <!-- // <script src="scripts/services/braintreeService.js"></script> -->
+        <script src="scripts/services/sessionInjector.js"></script>
+        <script src="scripts/services/localstorage.js"></script>
+        <script src="scripts/services/spreedlyService.js"></script>
+        <script src="scripts/services/geolocationService.js"></script>
+        <script src="scripts/services/analyticsService.js"></script>
+        <script src="scripts/services/pushWoosh.js"></script>
+        <script src="scripts/services/deviceManager.js"></script>
+
+        <!-- DIRECTIVES -->
+        <script src="scripts/directives/ionContentForm.js"></script>
+        <script src="scripts/directives/ordersList.js"></script>
+        <script src="scripts/directives/menufooter.js"></script>
+        <script src="scripts/directives/infoWindow.js"></script>
+        <script src="scripts/directives/infoWindowFuture.js"></script>
+        <script src="scripts/directives/infoWindowEvent.js"></script>
+
+        <!-- FILTERS -->
+        <script src="scripts/filters/paymentMethodIdentifier.js"></script>
+        <script src="scripts/filters/mobileNumberFormat.js"></script>
+
+        <!-- CONTROLLERS -->
+        <script src="scripts/controllers/home.js"></script>
+        <script src="scripts/controllers/sideMenu.js"></script>
+        <script src="scripts/controllers/register.js"></script>
+        <script src="scripts/controllers/card.js"></script>
+        <script src="scripts/controllers/wallet.js"></script>
+        <script src="scripts/controllers/menu.js"></script>
+        <script src="scripts/controllers/orders.js"></script>
+        <script src="scripts/controllers/account.js"></script>
+        <script src="scripts/controllers/passwordreset.js"></script>
+        <script src="scripts/controllers/passwordresetrequest.js"></script>
+        <script src="scripts/controllers/updates.js"></script>
+        <script src="scripts/controllers/pastorders.js"></script>
+
+</body>
+</html>

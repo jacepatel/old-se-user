@@ -1,0 +1,20 @@
+<div class='iw-wrap'>
+  <img class='iw-close' ng-click='iwClose()' src='img/box-cross.png' />
+  <div class='iw-content' ng-click="goToMenu(iwTruck)">
+    <span class='title mapTitle'>{{ iwTruck.name }}</span><span style='color: #13C546; float: right; padding-right: 14px;'>OPEN</span><br>
+    <p style="width: 90%; line-height: 1.2;">{{ iwTruck.description }}</p>
+    <p style="width: 90%; line-height: 1.2;" ng-if="displayDirections()">
+      <span style='font-weight: bold; text-decoration: underline;'>Directions</span><br>
+      {{ iwTruck.activeSession.locationDirections }}
+    </p>
+    <span class='sessionTimes' style='color: #13C546;'>
+      OPEN: {{ iwTruck.activeSession.startTime | date:'HH:mm' }} - {{ iwTruck.activeSession.endTime | date:'HH:mm' }}
+    </span>
+    <br>
+    <span style='color: black; font-size: 10pt;' ng-if='iwTruck.activeSession.isUsed && iwTruck.activeSession.isActiveForOrders'>Current Queue: {{ iwTruck.queueSize }}</span>
+    <span style='color: black; font-size: 10pt; color: #e62e25; display: block;' ng-if='!iwTruck.activeSession.isUsed || !iwTruck.activeSession.isActiveForOrders'>Mobile Ordering Not Available</span>
+    <img style='width: 30px;' class='clickarrow' ng-if='iwTruck.activeSession.isUsed && iwTruck.activeSession.isActiveForOrders' src="img/add-plus-g.png" />
+  </div>
+</div>
+<div class='iw-wedge'>
+</div>

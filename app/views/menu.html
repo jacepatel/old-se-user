@@ -1,0 +1,38 @@
+<ion-view>
+  <ion-nav-bar class='bar-stable'>
+    <div class="buttons left-buttons">
+      <a ng-href="#/home"><button class="button">BACK</button></a>
+    </div>
+    <h1 class='title oswald'>{{ truck.name | uppercase }}</h1>
+    <div class="buttons right-buttons">
+      <a ng-href="#/register" ng-if="!loggedIn()"><button class="button">SIGNUP</button></a>
+    </div>
+  </ion-nav-bar>
+  <ion-content scroll='true' padding="false" class='has-header has-footer menu-pane'  style='bottom: {{ getFooterDimension() }}px;'>
+    <div style='margin-top: 10px;' class='sub-title oswald'>
+      MENU
+    </div>
+    <div class="list list-inset">
+      <div class='item list-item' ng-repeat='item in items' ng-click='openOptions($index)'>
+        <div class='left'>
+          <div class='itemName'>{{ item.name }}</div><br>
+          <div class='itemDescription'>{{ item.description }}</div>
+        </div>
+        <div class='right'>
+          <div class='itemPrice'>${{ item.price | number: 2 }}</div><br>
+          <img ng-if='canOrder()' class='plus' src='img/add-plus-g.png' />
+        </div>
+      </div>
+    </div>
+  </ion-content>
+  <menu-footer ng-if='showFooter() && loaded'
+  items="currentItems"
+  total="getOrderTotal()"
+  height="{{ getFooterDimension() }}"
+  active="{{ activeForOrders }}"
+  confirm="openConfirm()"
+  edit="openEdit()"
+  minimum="{{ truck.activeSession.minimumOrderValue }}"
+  queuefull="queueFull()">
+  </menu-footer>
+</ion-view>

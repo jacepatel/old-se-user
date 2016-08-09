@@ -1,0 +1,22 @@
+<ion-view>
+  <ion-nav-bar class='bar-stable'>
+    <div class="buttons left-buttons">
+      <a ng-href="#/orders"><button class="button">BACK</button></a>
+    </div>
+    <h1 class='title oswald'>ORDER HISTORY</h1>
+  </ion-nav-bar>
+  <ion-content scroll='true' padding="false" class='has-header orders-pane'>
+    <div class="list list-inset">
+      <div class="item list-item item-divider" style='color: #adadad;'>
+        COMPLETE<img class='orderStatusImg' src='img/completed.png' />
+      </div>
+      <orders-list orders='orders'></orders-list>
+    </div>
+    <div class="list list-inset">
+      <div class="item list-item item-divider" style='color: #e62e25;'>
+        CANCELLED<img class='orderStatusImg' src='img/pending.png' />
+      </div>
+      <orders-list orders='cancelledOrders'></orders-list>
+    </div>
+  </ion-content>
+</ion-view>

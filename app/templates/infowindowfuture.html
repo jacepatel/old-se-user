@@ -1,0 +1,16 @@
+<div class='iw-wrap'>
+  <img class='iw-close' ng-click='iwClose()' src='img/box-cross.png' />
+  <div class='iw-content'>
+    <span class='title mapTitle'>{{ iwTruck.name }}</span><br>
+    <p style="width: 90%; line-height: 1.2;">{{ iwTruck.description }}</p>
+    <p style="width: 90%; line-height: 1.2;" ng-if="displayDirections()">
+      <span style='font-weight: bold; text-decoration: underline;'>Directions</span><br>
+      {{ iwSession.locationDirections }}
+    </p>
+    <span class='sessionTimes' style='color: #e99e39;'>
+      {{ todayOrTomorrow(iwSession.startTime) }}: {{ iwSession.startTime | date:'HH:mm' }} - {{ iwSession.endTime | date:'HH:mm' }}
+    </span>
+  </div>
+</div>
+<div class='iw-wedge'>
+</div>

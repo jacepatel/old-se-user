@@ -1,0 +1,34 @@
+<div class="modal event">
+  <div class="bar bar-header bar-stable">
+    <button class="button" ng-click="closeEvent()">BACK</button>
+    <h1 class='title oswald'>EVENT</h1>
+  </div>
+<ion-content scroll='true' class='has-header'>
+  <div class="bannerWrap" ng-if="events[openEventIndex].bannerUrl != null">
+    <img ng-src="{{ getImgUrl(events[openEventIndex].bannerUrl) }}" />
+    <div class='description' style='font-weight: bold; text-decoration: underline;'>{{ events[openEventIndex].name | uppercase }}:</div>
+    <p>
+      {{ events[openEventIndex].description }}
+      <br><br>
+      <span class='sessionTimes' style='color: #13C546; text-align: left; width: 100%;'>
+        {{ todayOrTomorrow(events[openEventIndex].startTime) }} until {{ events[openEventIndex].endTime | date:'HH:mm' }}
+      </span>
+    </p>
+  </div>
+  <div class="list list-inset" style='margin-top: 0px;'>
+    <input type='text' class='searchBox item list-item' ng-model='searchTerm' placeholder='Search' />
+    <div class='item list-item' style='padding: 5px;' ng-repeat="truck in events[openEventIndex].trucks | filter: { name: searchTerm }" ng-click="goToMenu(truck)">
+      <span class='' style='font-size: 10pt; font-weight: bold; text-decoration: underline; padding-left: 4px;'>{{ truck.name }}</span>
+      <br>
+      <p style='white-space: normal; margin-top: 5px; width: 90%; line-height: 1.2; font-size: 10pt;'>{{ truck.description }}</p><br>
+      <span style='font-size: 10pt;' ng-if="truck.activeSession.isUsed && truck.activeSession.isActiveForOrders">QUEUE: {{ truck.queueSize }}</span>
+      <span style='color: #e62e25; font-size: 10pt; padding-right: 4px;' ng-if="!truck.activeSession.isUsed || !truck.activeSession.isActiveForOrders">Mobile Ordering Not Available</span>
+      <img ng-if="truck.activeSession.isUsed && truck.activeSession.isActiveForOrders" class='clickarrow' src='img/add-plus-g.png' />
+    </div>
+    <div class='item list-item' ng-if="events[openEventIndex].trucks.length < 1">
+      <span>There are no food trucks currently open.</span>
+    </div>
+  </div>
+  <br>
+</ion-content>
+</div>
